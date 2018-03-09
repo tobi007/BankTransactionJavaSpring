@@ -6,10 +6,12 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="BankTransactionJavaSpring" />
         <module name="TeamaptTransactionEmulation3" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="BankTransactionJavaSpring" target="1.8" />
       <module name="TeamaptTransactionEmulation3" target="1.8" />
     </bytecodeTargetLevel>
   </component>
