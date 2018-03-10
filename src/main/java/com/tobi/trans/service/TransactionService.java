@@ -83,9 +83,9 @@ public class TransactionService implements TransactionServiceInterface {
         Account accountFrom = accountDAO.findByNumber(request.getSourceAccountNumber());
         Account accountTo = accountDAO.findByNumber(request.getDestinationAccountNumber());
 
-        if (accountFrom != null && accountFrom.getNumber().compareTo(request.getSourceAccountNumber()) == 0){
+        if (accountFrom != null && accountFrom.getNumber().compareTo(request.getSourceAccountNumber()) == 0 && accountFrom.getPin().compareTo(request.getPin()) == 0){
             if (accountTo != null && accountTo.getNumber().compareTo(request.getDestinationAccountNumber()) == 0){
-                if (accountFrom.creditAccount(request.getAmount()) && accountTo.debitAccount(request.getAmount())){
+                if (accountFrom.debitAccount(request.getAmount()) && accountTo.creditAccount(request.getAmount())){
                     Transaction transFrom = new Transaction(
                             "ONLINE_TRANSFER",
                             "CREDIT_TRANSFER",
@@ -131,9 +131,22 @@ public class TransactionService implements TransactionServiceInterface {
     }
 
     public TransferResponse getAllTransactions(){
-        response = new TransferResponse(false, "500", "Sender details not correct");
+        response = new TransferResponse(false, "500", "Successfull");
         response.getData().add(transationDAO.findAll());
         return response;
     }
 
+    public TransferResponse getAllTransactionAccount(TransferRequest request) {
+        Account account = accountDAO.findByNumber(request.getSourceAccountNumber());
+
+        if (account != null && account.getNumber().compareTo(request.getSourceAccountNumber()) == 0 && account.getPin().compareTo(request.getPin()) == 0){
+            response = new TransferResponse(true, "200", "Successfull");
+            response.getData().add(account.getListOfTransactions());
+
+            return response;
+        }else {
+            response = new TransferResponse(false, "500", "No records found Successfull");
+            return response;
+        }
+    }
 }

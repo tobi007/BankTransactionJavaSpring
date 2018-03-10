@@ -9,6 +9,15 @@ public class TransferRequest {
     private String destinationAccountNumber;
     private String destinationFullName;
     private Double amount;
+    private String pin;
+
+    public String getPin() {
+        return pin;
+    }
+
+    public void setPin(String pin) {
+        this.pin = pin;
+    }
 
     public void setAmount(Double amount) {
         this.amount = amount;

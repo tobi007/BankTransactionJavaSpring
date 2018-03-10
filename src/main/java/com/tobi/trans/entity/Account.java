@@ -29,11 +29,12 @@ public class Account {
 
     @OneToMany(cascade=CascadeType.ALL)
     @JoinTable(name="account_transaction",joinColumns={@JoinColumn(name="number")},inverseJoinColumns={@JoinColumn(name="transactionId")})
-    private List<Transaction> listOfTransactions=new ArrayList();
+    private List<Transaction> listOfTransactions;
 
     public Account(){
 
     }
+
     public Account(String name, String pin, String bank, String number, String email, Double balance) {
         this.name = name;
         this.pin = pin;
@@ -118,8 +119,8 @@ public class Account {
         this.listOfTransactions = listTransactions;
     }
 
-    public boolean creditAccount(Double amount){
-        if (this.getBalance() < 0){
+    public boolean debitAccount(Double amount){
+        if (this.getBalance() <= 0){
             return false;
         }
 
@@ -127,7 +128,7 @@ public class Account {
         return true;
     }
 
-    public boolean debitAccount(Double amount){
+    public boolean creditAccount(Double amount){
 
         this.balance += amount;
         return true;

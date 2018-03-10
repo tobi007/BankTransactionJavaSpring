@@ -3,10 +3,8 @@ package com.tobi.trans.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
 
 import com.tobi.trans.entity.Account;
 import com.tobi.trans.entity.Transaction;
@@ -28,6 +26,13 @@ public class TransactionController {
 
     @RequestMapping(value = "/transaction/all", method = RequestMethod.POST, headers = "Accept=application/json")
     public TransferResponse allTransaction(@RequestBody TransferRequest request){
+
         return transactionService.getAllTransactions();
+    }
+
+    @RequestMapping(value = "/transaction/account/all", method = RequestMethod.POST, headers = "Accept=application/json",consumes = MediaType.ALL_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+
+    public TransferResponse allTransactionAccount(@RequestBody TransferRequest request){
+        return transactionService.getAllTransactionAccount(request);
     }
 }
